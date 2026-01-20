@@ -5,8 +5,9 @@
  * @format
  */
 
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -28,10 +29,12 @@ function AppContent() {
 
   return (
     <View style={styles.container}>
-      <NewAppScreen
+      {/* <NewAppScreen
         templateFileName="App.tsx"
         safeAreaInsets={safeAreaInsets}
-      />
+      /> */}
+      <Text style={{marginBottom: 60}}>Hello</Text>
+      <Ionicons name='aperture-outline' style={{width: 80, height: 80, fontSize: 30}} />
     </View>
   );
 }

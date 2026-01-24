@@ -55,5 +55,14 @@
 	<array>
 		<string>Ionicons.ttf</string>
 	</array>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Need your permission in order to use the map</string>
+  <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+  <dict>
+    <key>YOUR-PURPOSE-KEY</key>
+    <string>Need your permission in order to use the map</string>
+  </dict>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Need your permission in order to use the map</string>
 </dict>
 </plist>

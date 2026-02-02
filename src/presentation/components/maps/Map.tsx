@@ -2,9 +2,8 @@ import { Platform } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Location } from '../../../infrastructure/interfaces/location';
 import { FAB } from '../ui/FAB';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocationStore } from '../../store/location/useLocationStore';
-import { clearWatchLocation } from '../../../actions/location/location';
 
 interface Props {
     showsUserLocation?: boolean;
@@ -15,6 +14,7 @@ export const Map = ({ showsUserLocation = true, initialLocation}: Props) => {
 
     const mapRef = useRef<MapView | null>(null);
     const cameraLocation = useRef<Location>(initialLocation);
+    const [isFollowingUser, setIsFollowingUser] = useState(true)
 
     const { getLocation, lastKnownLocation, watchLocation, clearWatchLocation } = useLocationStore();
 
@@ -44,10 +44,10 @@ export const Map = ({ showsUserLocation = true, initialLocation}: Props) => {
     }, []);
 
     useEffect(() => {
-      if(lastKnownLocation) {
+      if(lastKnownLocation && isFollowingUser) {
         moveCameraToLocation(lastKnownLocation)
       }
-    }, [lastKnownLocation])
+    }, [lastKnownLocation, isFollowingUser])
     
     
 
@@ -65,6 +65,7 @@ export const Map = ({ showsUserLocation = true, initialLocation}: Props) => {
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.0121,
                 }}
+                onTouchStart={() => setIsFollowingUser(false)}
             >
                 <Marker
                     coordinate={{
@@ -77,6 +78,7 @@ export const Map = ({ showsUserLocation = true, initialLocation}: Props) => {
                 />
             </MapView>
 
+            <FAB iconName={ isFollowingUser ? 'walk-outline' : 'accessibility-outline' } onPress={() => setIsFollowingUser(!isFollowingUser)} style={{bottom: 80, right: 20}} />
             <FAB iconName="compass-outline" onPress={moveToCurrentLocation} style={{bottom: 20, right: 20}} />
         </>
     )
